@@ -25,20 +25,34 @@ Comments and suggestions for how to improve this are very welcome!
 
 To get started with `translation-agent`, follow these steps:
 
-### Installation:
-- The Poetry package manager is required for installation. [Poetry Installation](https://python-poetry.org/docs/#installation) Depending on your environment, this might work:
+### Installation
+This project uses `uv` for environment and package management.
 
-```bash
-pip install poetry
-```
+1.  **Clone the repository:**
+    ```bash
+    git clone https://github.com/slee124565/translation-agent.git
+    cd translation-agent
+    ```
 
-- A .env file with a OPENAI_API_KEY is required to run the workflow. See the .env.sample file as an example.
-```bash
-git clone https://github.com/andrewyng/translation-agent.git
-cd translation-agent
-poetry install
-poetry shell # activates virtual environment
-```
+2.  **Create and activate virtual environment:**
+    ```bash
+    uv venv -p python3.12
+    uv sync
+    source .venv/bin/activate
+    ```
+
+3.  **Install dependencies:**
+    ```bash
+    uv pip install -e .
+    ```
+
+4.  **Configure API Key:**
+    A `.env` file with an `OPENAI_API_KEY` is required. You can copy the example file:
+    ```bash
+    cp .env.sample .env
+    ```
+    Then, edit `.env` to add your key.
+
 ### Usage:
 
 ```python
