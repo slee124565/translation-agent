@@ -7,7 +7,7 @@ name = "translation-agent"
 version = "0.1.0"
 description = "Agentic workflow for machine translation using LLMs"
 readme = "README.md"
-license = { text = "MIT" }
+license = "MIT"
 authors = [
     { name = "Andrew Ng", email = "ng@deeplearning.ai" },
 ]
