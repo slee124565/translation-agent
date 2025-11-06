@@ -24,19 +24,14 @@ This repository contains a Gradio web UI for a translation agent that utilizes v
 
 1. **Install Dependencies:**
 
-    **Linux**
     ```bash
-        git clone https://github.com/andrewyng/translation-agent.git
-        cd translation-agent
-        poetry install --with app
-        poetry shell
-    ```
-    **Windows**
-    ```bash
-        git clone https://github.com/andrewyng/translation-agent.git
-        cd translation-agent
-        poetry install --with app
-        poetry shell
+    git clone https://github.com/andrewyng/translation-agent.git
+    cd translation-agent
+    uv venv
+    # Activate the virtual environment.
+    # On Linux/macOS, run: source .venv/bin/activate
+    # On Windows, run: .venv\Scripts\activate
+    uv pip install --index-strategy unsafe-best-match -e ".[app]"
     ```
 
 2. **Set API Keys:**
@@ -51,13 +46,8 @@ This repository contains a Gradio web UI for a translation agent that utilizes v
 
 3. **Run the Web UI:**
 
-    **Linux**
     ```bash
     python app/app.py
-    ```
-    **Windows**
-    ```bash
-    python .\app\app.py
     ```
 
 4. **Access the Web UI:**
