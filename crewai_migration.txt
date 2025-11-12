@@ -1,5 +1,17 @@
 若是要參照這個項目的 translate function ，改用 crewai python tools 來實作 translation 功能的話，設計 easy, normal, hard 三中移植方案
 
+方案一:簡易方案(Easy)
+這個方案的目標是用最少的程式碼改動,快速將現有邏輯包裝成crewai工
+具。我們將原本的one_chunk_translate_text 和 multichunk_translation
+函式直接轉换為單一的 Tool。
+設計思路:
+·創建一個TranslationTool,它内部直接呼叫您現有的 translate 函式。
+・定義一個 CoordinatorAgent(協調員),這個Agent 的唯一工作就是使用
+這個工具來完成整個翻譯流程。
+·這種方法的好處是實現簡單快速,但缺點是犧牲了 crewai流程的透明
+度,因為所有的翻譯、反思、改進步驟都被封裝在一個工具裡,無法單獨
+觀察或替换。
+
 方案二:標準方案(Normal)
 這個方案將翻譯流程折解成獨立的工具,讓不同的Agent各司其職,更符合crewai 的協作精作精神。
 設計思路:
