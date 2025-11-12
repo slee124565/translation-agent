@@ -1,0 +1,28 @@
+若是要參照這個項目的 translate function ，改用 crewai python tools 來實作 translation 功能的話，設計 easy, normal, hard 三中移植方案
+
+方案二:標準方案(Normal)
+這個方案將翻譯流程折解成獨立的工具,讓不同的Agent各司其職,更符合crewai 的協作精作精神。
+設計思路:
+・將one_chunk_initial_translation, one_chunk_reflect_on_translation,
+one_chunk_improve_translation 分別包裝成三個獨立的 Tool。
+·建立前面提到的 Translator、Reviewer 和 Editor三個Agent。
+Translator 使用 initial_translation_tool。
+Reviewer 使用 reflection_tool,並接收Translator 的輸出。
+・Editor 使用improvement_tool,並接收原文、初稿和審稿員的建議。
+·這種方法讓每一步驟都變得清晰,可以單獨測測試和優化每個Agent 的 prompt 或工具。
+
+方案三:進階方案(Hard)
+這個方案將完整重構您的程式碼,充分利用 crewai的能力,特別是處理多區塊(multi-chunk)翻譯
+的複雜邏輯。
+設計思路:
+·動態任務生成,建立一個Manager Agent(經理)。它的職責是接收原始文本,判斷是否需要分
+如果不需要,它會創建並指派一個單塊翻譯的工作流程(類似方案二)。
+·如果需要,它會將文本分塊,然後為每一個區塊動態生成一組翻譯、審閱、編輯的Task。
+・階層式流程(Hierarchical Process):使用 crewai 的 Process.hierarchical Manager Agent
+作為上層,負責委派任務給下層的Translator, Reviewer, Editor Agents -
+・上下文感知工具(Context-Aware Tools):重備multichunk系列列函式,使其更適合被 Tool呼
+叫。工具的輸入需要包含當前區塊的索引和所有區塊的列表,以便在 prompt 中重建上下文
+(...<TRANSLATE_THIS>...</TRANSLATE_THIS>.
+·結果匯總:Manager Agent在所有子任務完成後,負責將所有翻譯好的區塊拼接起來,形成最終
+的完整譯文。
+塊。
